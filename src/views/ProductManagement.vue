@@ -65,9 +65,7 @@ onMounted(() => {
 })
 
 // 監聽頁碼變化以重新取得資料
-watch(currentPage, () => {
-  getProducts()
-})
+watch(currentPage, getProducts)
 
 // TODO: 為 getInitialProductData 函式加上型別註解
 // 提示：這個函式不接受參數，回傳 ProductData 型別

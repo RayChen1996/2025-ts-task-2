@@ -21,15 +21,15 @@ import { useProductForm } from '@/composable/useProductData'
 
 // TODO: 匯入型別定義
 // 提示：從 @/types/product 匯入 ProductData
-import type { ProductData, CreateProductParams } from '@/types/product'
+import type { ProductData } from '@/types/product'
 import { Modal } from 'bootstrap'
 
 import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
 
 // TODO: 定義 Props 介面
-// 提示：ProductModalProps 應該包含 product 屬性，型別是 ProductData
+// 提示：ProductModalProps 應該包含 product 屬性，型別是 ProductData | null
 interface ProductModalProps {
-  product: ProductData
+  product: ProductData | null
 }
 
 // TODO: 定義 props
@@ -88,7 +88,7 @@ const {
 watch(
   () => product,
   (newProduct) => {
-    if (newProduct.id) {
+    if (newProduct && newProduct.id) {
       loadProduct(newProduct)
       resetImages([newProduct.imageUrl, ...newProduct.imagesUrl])
     } else {
@@ -99,7 +99,7 @@ watch(
   { immediate: true, deep: true },
 )
 
-const isEditMode = computed(() => Boolean(product.id))
+const isEditMode = computed(() => Boolean(product?.id))
 
 const isLoading = ref(false)
 
